@@ -1,4 +1,4 @@
-### Neovim plugin for highlighting text
+### Neovim plugin for highlighting
 
 This plugin highlights text in a buffer.
 
