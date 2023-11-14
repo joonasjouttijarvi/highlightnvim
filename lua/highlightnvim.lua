@@ -14,6 +14,12 @@ local function should_skip_buffer()
 
     return skip_types[buftype] or false
 end
+
+local function clear_highlights()
+    vim.cmd("match none")
+end
+    
+end
 local function get_word_under_cursor()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     local line = vim.api.nvim_get_current_line()
@@ -55,6 +61,12 @@ local function highlight_word()
     local pattern = "\\<" .. word .. "\\>"
     vim.cmd("match WordUnderCursor /" .. pattern .. "/")
 end
+
+api.nvim_create_autocmd("InsertEnter", {
+    callback = function()
+        clear_highlights()
+    end,
+})
 
 api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     callback = function()
