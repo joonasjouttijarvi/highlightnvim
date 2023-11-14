@@ -35,6 +35,11 @@ local function get_word_under_cursor()
 end
 
 local function highlight_word()
+    local mode = api.nvim_get_mode().mode
+    if mode ~= "n" then
+        return
+    end
+
     if should_skip_buffer() then
         vim.cmd("match none")
         return
