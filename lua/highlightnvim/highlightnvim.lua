@@ -1,3 +1,4 @@
+local M = {}
 local api = vim.api
 
 local function get_word_under_cursor()
@@ -27,3 +28,4 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 })
 
 vim.cmd('hi WordUnderCursor cterm=underline gui=underline')
+return M
