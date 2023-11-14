@@ -35,6 +35,11 @@ local function get_word_under_cursor()
 end
 
 local function highlight_word()
+    if should_skip_buffer() then
+        vim.cmd("match none")
+        return
+    end
+
     local word = get_word_under_cursor()
 
     if word == "" or word:match("[^%w_]") then
