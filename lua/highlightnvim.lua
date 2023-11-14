@@ -19,7 +19,6 @@ local function clear_highlights()
     vim.cmd("match none")
 end
     
-end
 local function get_word_under_cursor()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     local line = vim.api.nvim_get_current_line()
