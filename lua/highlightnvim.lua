@@ -33,5 +33,4 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         highlight_word()
     end,
 })
-
-vim.cmd("hi WordUnderCursor guibg=Grey80 ctermbg=Grey80")
+vim.cmd("hi WordUnderCursor guibg=#2e3440 guifg=#d8dee9")
