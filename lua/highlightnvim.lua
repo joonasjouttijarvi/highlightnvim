@@ -15,11 +15,6 @@ local function should_skip_buffer()
     return skip_types[buftype] or false
 end
 
-local function escape_pattern(text)
-    return text:gsub('([^%w{}])', '\\%1'):gsub('([{}])', '\\%1')
-end
-
-
 local function get_word_under_cursor()
     local row, col = unpack(api.nvim_win_get_cursor(0))
     local line = api.nvim_get_current_line()
@@ -33,24 +28,21 @@ local function get_word_under_cursor()
     end
 
     local word = line:sub(start + 1, finish - 1)
-    return word:match("^%s*$") and "" or word -- Check for blank space
+    return word:match("^%s*$") and "" or word
 end
 
 local function highlight_word()
-    if should_skip_buffer() then
-        return
-    end
     local word = get_word_under_cursor()
 
-    if word == "" then
-        vim.cmd("match none") -- Clear the highlight if the word is empty
+    if word == '' or word:match('[^%w_]') then
+        vim.cmd('match none')
         return
     end
 
-    local escaped_word = escape_pattern(word)
-    local pattern = "\\<" .. escaped_word .. "\\>"
-    vim.cmd("match WordUnderCursor /" .. pattern .. "/")
+    local pattern = '\\<' .. word .. '\\>'
+    vim.cmd('match WordUnderCursor /' .. pattern .. '/')
 end
+
 
 api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     callback = function()
