@@ -14,35 +14,37 @@ local function should_skip_buffer()
 
     return skip_types[buftype] or false
 end
-
 local function get_word_under_cursor()
-    local row, col = unpack(api.nvim_win_get_cursor(0))
-    local line = api.nvim_get_current_line()
-    local start, finish = col, col
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local line = vim.api.nvim_get_current_line()
 
+    local start = col
     while start > 0 and line:sub(start, start):match("%w") do
         start = start - 1
     end
-    while finish <= #line and line:sub(finish, finish):match("%w") do
+    local finish = col
+    while finish <= #line and line:sub(finish + 1, finish + 1):match("%w") do
         finish = finish + 1
     end
 
-    local word = line:sub(start + 1, finish - 1)
-    return word:match("^%s*$") and "" or word
+    if start < finish then
+        start = start + 1
+    end
+
+    return line:sub(start, finish)
 end
 
 local function highlight_word()
     local word = get_word_under_cursor()
 
-    if word == '' or word:match('[^%w_]') then
-        vim.cmd('match none')
+    if word == "" or word:match("[^%w_]") then
+        vim.cmd("match none")
         return
     end
 
-    local pattern = '\\<' .. word .. '\\>'
-    vim.cmd('match WordUnderCursor /' .. pattern .. '/')
+    local pattern = "\\<" .. word .. "\\>"
+    vim.cmd("match WordUnderCursor /" .. pattern .. "/")
 end
-
 
 api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     callback = function()
