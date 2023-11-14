@@ -11,8 +11,7 @@ local function get_word_under_cursor()
     while finish <= #line and line:sub(finish, finish):match("%w") do
         finish = finish + 1
     end
-    local word = line:sub(start + 1, finish - 1)
-    return word:match("^%s*$") and "" or word
+    return line:sub(start + 1, finish - 1)
 end
 
 local function highlight_word()
