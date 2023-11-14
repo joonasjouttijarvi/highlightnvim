@@ -35,4 +35,4 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 })
 
 
-vim.cmd("hi WordUnderCursor cterm=underline gui=underline")
+vim.cmd("hi WordUnderCursor guibg=#2a2e36 guifg=#abb2bf")
