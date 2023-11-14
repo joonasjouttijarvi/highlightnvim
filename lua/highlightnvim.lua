@@ -16,9 +16,8 @@ local function should_skip_buffer()
 end
 
 local function escape_pattern(text)
-    return text:gsub('([^%w])', '%%%1')
+    return text:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1"):gsub("([\\~`!@#&_={}:\";'<>,%?%|%[%]/])", "\\%1")
 end
-
 
 local function get_word_under_cursor()
     local row, col = unpack(api.nvim_win_get_cursor(0))
