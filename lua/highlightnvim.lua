@@ -1,5 +1,20 @@
 local api = vim.api
 
+local function should_skip_buffer()
+    local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+
+    local skip_types = {
+        ["nofile"] = true,
+        ["terminal"] = true,
+        ["prompt"] = true,
+        ["help"] = true,
+        ["quickfix"] = true,
+        ["loclist"] = true,
+    }
+
+    return skip_types[buftype] or false
+end
+
 local function get_word_under_cursor()
     local row, col = unpack(api.nvim_win_get_cursor(0))
     local line = api.nvim_get_current_line()
@@ -17,6 +32,9 @@ local function get_word_under_cursor()
 end
 
 local function highlight_word()
+    if should_skip_buffer() then
+        return
+    end
     local word = get_word_under_cursor()
 
     if word == "" then
@@ -34,5 +52,4 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     end,
 })
 
-
-vim.cmd("hi WordUnderCursor guibg=#2a2e36 guifg=#abb2bf")
+vim.cmd("hi WordUnderCursor cterm=underline gui=underline")
