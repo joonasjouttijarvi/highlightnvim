@@ -5,10 +5,10 @@ local function get_word_under_cursor()
     local line = api.nvim_get_current_line()
     local start, finish = col, col
 
-    while start > 0 and line:sub(start, start):match('%w') do
+    while start > 0 and line:sub(start, start):match("%w") do
         start = start - 1
     end
-    while finish <= #line and line:sub(finish, finish):match('%w') do
+    while finish <= #line and line:sub(finish, finish):match("%w") do
         finish = finish + 1
     end
 
@@ -19,13 +19,13 @@ end
 local function highlight_word()
     local word = get_word_under_cursor()
 
-    if word == '' then
-        vim.cmd('match none') -- Clear the highlight if the word is empty
+    if word == "" then
+        vim.cmd("match none") -- Clear the highlight if the word is empty
         return
     end
 
-    local pattern = '\\<' .. word .. '\\>'
-    vim.cmd('match WordUnderCursor /' .. pattern .. '/')
+    local pattern = "\\<" .. word .. "\\>"
+    vim.cmd("match WordUnderCursor /" .. pattern .. "/")
 end
 
 api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
@@ -34,5 +34,4 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     end,
 })
 
-vim.cmd("hi WordUnderCursor cterm=underline gui=underline")
-return M
+vim.cmd("hi WordUnderCursor guibg=Grey80 ctermbg=Grey80")
