@@ -17,19 +17,7 @@ and then require it in our config
 require('highlightnvim')
 ```
 
-### Customization
 
-You can customize the highlight color by setting the following variables in your config.
-example:
-
-```lua
-hi WordUnderCursor guibg=#hexcolor ctermbg=lightgrey
-```
-or with underline
-
-```lua
-hi WordUnderCursor gui=underline cterm=underline
-```
 
 
 
