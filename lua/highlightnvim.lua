@@ -72,5 +72,5 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         highlight_word()
     end,
 })
--- no underline only background
+
 vim.cmd("hi WordUnderCursor cterm=underline gui=underline")
