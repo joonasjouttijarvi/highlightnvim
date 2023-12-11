@@ -73,4 +73,4 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     end,
 })
 -- no underline only background
-vim.cmd("hi WordUnderCursor guibg=#2a2e36")
+vim.cmd("hi WordUnderCursor cterm=underline gui=underline")
