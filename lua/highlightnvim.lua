@@ -18,9 +18,9 @@ end
 local function clear_highlights()
     vim.cmd("match none")
 end
-    
+
 local function get_word_under_cursor()
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local col = unpack(vim.api.nvim_win_get_cursor(0))
     local line = vim.api.nvim_get_current_line()
 
     local start = col
@@ -72,5 +72,5 @@ api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         highlight_word()
     end,
 })
-
-vim.cmd("hi WordUnderCursor cterm=underline gui=underline")
+-- no underline only background
+vim.cmd("hi WordUnderCursor guibg=#2a2e36")
